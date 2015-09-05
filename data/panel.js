@@ -5,6 +5,7 @@ function init() {
       .val('')
       .keyup(function(event) {
          if (event.which == 13) {
+            console.log('meme pattern completed');
             self.port.emit('memeRequest', target, $(this).val());
          }
       });
