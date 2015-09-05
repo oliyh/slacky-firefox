@@ -27,13 +27,17 @@ slackyPanel.requests = {};
 
 slackyPanel.port.on('memeRequest', function(target, memePattern) {
    console.log('generating meme from request ' + request);
-
-   var request = slackyPanel.requests[target];
-
-   request.worker.port.emit('memeGenerated', target, memePattern);
    // talk to slacky, generate meme
-   // how can i reattach to the worker when it completes?
-   // worker.port.emit('memeGenerated', 'http://memes.com/cat.gif', target);
+   // display spinner
+   // show image thumbnail in panel when it's ready
+   // presume right click / image url will work on it
+
+   // pass the url back to the target which requested it, if any
+   var request = slackyPanel.requests[target];
+   if (request) {
+      request.worker.port.emit('memeGenerated', target, memePattern);
+   }
+
 });
 
 function openSlacky(target) {
