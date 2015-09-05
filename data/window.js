@@ -5,8 +5,6 @@ function attachDomEventListeners() {
       var userText = $(event.target).val();
       if (memePattern.test(userText)) {
          self.port.emit('memeDetected', $(event.target).attr('id'));
-      } else {
-         // hide dialogue
       }
    });
 }

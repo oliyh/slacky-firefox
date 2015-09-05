@@ -30,12 +30,7 @@ slackyPanel.requests = {};
 
 slackyPanel.port.on('memeRequest', function(target, memePattern) {
    console.log('generating meme from request ' + memePattern);
-   // display spinner
-   // show image thumbnail in panel when it's ready
-   // presume right click / image url will work on it
    // can focus be returned to the target or will the panel disappear?
-
-   // pass the url back to the target which requested it, if any
 
    var slackyRequest = Request({
       url: "https://slacky-server.herokuapp.com/api/meme",
@@ -44,6 +39,7 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
          var memeUrl = response.text;
          slackyPanel.port.emit('memeGenerated', memeUrl);
 
+         // pass the url back to the target which requested it, if any
          var request = slackyPanel.requests[target];
          if (request != undefined) {
             request.worker.port.emit('memeGenerated', target, memeUrl);
@@ -79,9 +75,7 @@ tabs.on('ready', function () {
 
 });
 
-// slacky operations
-
 // for dev only
 console.log('Slacky initialising');
-tabs.activeTab.url = self.data.url("demo.html");
-openSlacky();
+//tabs.activeTab.url = self.data.url("demo.html");
+//openSlacky();
