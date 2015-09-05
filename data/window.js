@@ -12,9 +12,9 @@ function attachDomEventListeners() {
 }
 
 function attachSlackyEventListeners() {
-   self.port.on('memeGenerated', function(meme, target) {
+   self.port.on('memeGenerated', function(target, memeUrl) {
       var target = $('#' + target);
-      target.val(target.val().replace(memePattern, meme));
+      target.val(target.val().replace(memePattern, memeUrl));
    });
 }
 

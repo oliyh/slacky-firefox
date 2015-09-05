@@ -20,21 +20,27 @@ var button = buttons.ActionButton({
 var slackyPanel = panels.Panel({
    contentURL: self.data.url("slacky-panel.html"),
    contentScriptFile: [self.data.url("jquery.js"),
-                       self.data.url("panel.js")]
+                       self.data.url("panel.js")],
 });
 
-slackyPanel.port.on('memeRequest', function(request) {
+slackyPanel.requests = {};
+
+slackyPanel.port.on('memeRequest', function(target, memePattern) {
    console.log('generating meme from request ' + request);
+
+   var request = slackyPanel.requests[target];
+
+   request.worker.port.emit('memeGenerated', target, memePattern);
    // talk to slacky, generate meme
    // how can i reattach to the worker when it completes?
    // worker.port.emit('memeGenerated', 'http://memes.com/cat.gif', target);
 });
 
-function openSlacky() {
+function openSlacky(target) {
    slackyPanel.show({
       position: button
    });
-   slackyPanel.port.emit('panelOpened');
+   slackyPanel.port.emit('panelOpened', target);
 }
 
 // subscribe event listeners on text fields in the dom
@@ -50,7 +56,9 @@ tabs.on('ready', function () {
 
    worker.port.on('memeDetected', function(target) {
       console.log('opening meme dialogue');
-      openSlacky();
+      slackyPanel.requests[target] = {target: target,
+                                      worker: worker};
+      openSlacky(target);
    });
 
 });
