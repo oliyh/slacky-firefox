@@ -22,6 +22,8 @@ var slackyPanel = panels.Panel({
    contentURL: self.data.url("slacky-panel.html"),
    contentScriptFile: [self.data.url("jquery.js"),
                        self.data.url("panel.js")],
+   width: 360,
+   height: 280
 });
 
 slackyPanel.requests = {};
@@ -40,6 +42,8 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
       content: {text: memePattern},
       onComplete: function (response) {
          var memeUrl = response.text;
+         slackyPanel.port.emit('memeGenerated', memeUrl);
+
          var request = slackyPanel.requests[target];
          if (request != undefined) {
             request.worker.port.emit('memeGenerated', target, memeUrl);
