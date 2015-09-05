@@ -31,6 +31,7 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
    // display spinner
    // show image thumbnail in panel when it's ready
    // presume right click / image url will work on it
+   // can focus be returned to the target or will the panel disappear?
 
    // pass the url back to the target which requested it, if any
    var request = slackyPanel.requests[target];
