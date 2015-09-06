@@ -32,12 +32,24 @@
         height: 272px;
         margin-bottom: 0;
       }
+
+      #error {
+        background: rgba(255, 255, 255, 0.8);
+        color: black;
+        margin-top: 4px;
+        margin-left: 1px;
+        margin-right: 1px;
+        border-radius: 2px;
+        display: none;
+        padding: 4px;
+      }
     </style>
   </head>
   <body>
     <div>
       <input id="meme-input" type="text" placeholder="url or search | upper | lower">
       <img id="meme" src=""/>
+      <p id="error"></p>
     </div>
   </body>
 </html>

@@ -3,6 +3,12 @@ Create all the memes directly from your browser
 
 # Development
 
+## Discrete
+
+`jpm run -b \`which firefox\``
+
+## Continuous (not very stable)
+
 1. Install [Extension Auto-Installer](https://addons.mozilla.org/en-US/firefox/addon/autoinstaller/) into Firefox
 2. Run `jpm watchpost --post-url http://localhost:8888/` to automatically push changes into Firefox
 3. Enable [Add-on Debugger](https://developer.mozilla.org/en-US/Add-ons/Add-on_Debugger)

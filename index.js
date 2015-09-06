@@ -36,13 +36,28 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
       url: "https://slacky-server.herokuapp.com/api/meme",
       content: {text: memePattern},
       onComplete: function (response) {
-         var memeUrl = response.text;
-         slackyPanel.port.emit('memeGenerated', memeUrl);
+         switch(response.status) {
 
-         // pass the url back to the target which requested it, if any
-         var request = slackyPanel.requests[target];
-         if (request != undefined) {
-            request.worker.port.emit('memeGenerated', target, memeUrl);
+            case 200:
+            var memeUrl = response.text;
+            slackyPanel.port.emit('memeGenerated', memeUrl);
+
+            // pass the url back to the target which requested it, if any
+            var request = slackyPanel.requests[target];
+            if (request != undefined) {
+               request.worker.port.emit('memeGenerated', target, memeUrl);
+            }
+            break;
+
+            case 400:
+            var helpText = response.text;
+            slackyPanel.port.emit('badMemeRequest', helpText);
+            break;
+
+            default:
+            var error = response.text;
+            slackyPanel.port.emit('memeGenerationFailed', error);
+            break;
          }
       }
    }).post();
@@ -62,6 +77,7 @@ tabs.on('ready', function () {
    var tab = tabs[0];
    var worker = tab.attach({
       contentScriptFile: [self.data.url("jquery.js"),
+                          self.data.url("utils.js"),
                           self.data.url("window.js")]
 
    });
@@ -77,5 +93,5 @@ tabs.on('ready', function () {
 
 // for dev only
 console.log('Slacky initialising');
-//tabs.activeTab.url = self.data.url("demo.html");
+tabs.activeTab.url = self.data.url("slacky-panel.html");
 //openSlacky();
