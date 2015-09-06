@@ -1,6 +1,19 @@
 #Slacky - Memes as a Service
 Create all the memes directly from your browser
 
+# Installation
+
+Install the latest version at https://slacky-server.herokuapp.com#firefox
+
+# Usage
+
+1. Type `/meme` into any text input to open the dialogue.
+2. Type in your meme command and press Enter
+3. When you meme has been generated it will be inserted back into your text input as a url
+
+Alternatively, just open from the Firefox toolbar by clicking on the icon.
+Learn the meme syntax at https://slacky-server.herokuapp.com
+
 # Development
 
 ## Discrete
