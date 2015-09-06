@@ -19,6 +19,7 @@ function init() {
    });
 
    self.port.on('memeGenerated', function(memeUrl) {
+      $('#error').text('').hide();
       $('#meme').attr('src', memeUrl).show();
    });
 
