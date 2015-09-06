@@ -6,6 +6,7 @@ function init() {
       .keyup(function(event) {
          if (event.which == 13) {
             console.log('meme pattern completed');
+            $('#error').text('').hide();
             $('#meme').attr('src', 'loading.gif').show();
             self.port.emit('memeRequest', target, $(this).val());
          }
@@ -19,7 +20,6 @@ function init() {
    });
 
    self.port.on('memeGenerated', function(memeUrl) {
-      $('#error').text('').hide();
       $('#meme').attr('src', memeUrl).show();
    });
 

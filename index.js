@@ -73,8 +73,7 @@ function openSlacky(target) {
 // subscribe event listeners on text fields in the dom
 // when a new tab is opened
 
-tabs.on('ready', function () {
-   var tab = tabs[0];
+tabs.on('ready', function (tab) {
    var worker = tab.attach({
       contentScriptFile: [self.data.url("jquery.js"),
                           self.data.url("utils.js"),
