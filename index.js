@@ -4,6 +4,8 @@ var panels = require("sdk/panel");
 var buttons = require('sdk/ui/button/action');
 var tabs = require("sdk/tabs");
 var Request = require("sdk/request").Request;
+var ss = require("sdk/simple-storage");
+var uuid = require("sdk/util/uuid");
 
 // slacky UI
 
@@ -33,8 +35,9 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
    // can focus be returned to the target or will the panel disappear?
 
    var slackyRequest = Request({
-      url: "https://slacky-server.herokuapp.com/api/meme",
-      content: {text: memePattern},
+      url: "https://slacky-server.herokuapp.com/api/browser-plugin/meme",
+      content: {text: memePattern,
+                token: ss.storage.clientId},
       onComplete: function (response) {
          switch(response.status) {
 
@@ -94,3 +97,8 @@ tabs.on('ready', function (tab) {
 console.log('Slacky initialising');
 //tabs.activeTab.url = self.data.url("slacky-panel.html");
 //openSlacky();
+
+if (ss.storage.clientId == undefined) {
+   ss.storage.clientId = '' + uuid.uuid();
+}
+console.log('clientId ' + ss.storage.clientId);
