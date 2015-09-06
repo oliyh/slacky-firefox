@@ -93,5 +93,5 @@ tabs.on('ready', function () {
 
 // for dev only
 console.log('Slacky initialising');
-tabs.activeTab.url = self.data.url("slacky-panel.html");
+//tabs.activeTab.url = self.data.url("slacky-panel.html");
 //openSlacky();
