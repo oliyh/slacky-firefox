@@ -8,8 +8,8 @@ var Request = require("sdk/request").Request;
 // slacky UI
 
 var button = buttons.ActionButton({
-  id: "mozilla-link",
-  label: "Visit Mozilla",
+  id: "slacky",
+  label: "Slacky",
   icon: {
     "16": "./slacky-16.png",
     "32": "./slacky-32.png",
