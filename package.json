@@ -1,12 +1,26 @@
 {
-  "title": "Slacky - Memes as a Service",
-  "name": "slacky",
-  "version": "0.0.1",
-  "description": "Create all the memes directly from your browser",
-  "main": "index.js",
-  "author": "Oliver Hine",
-  "engines": {
-    "firefox": ">=38.0a1"
-  },
-  "license": "MIT"
+   "title": "Slacky - Memes as a Service",
+   "name": "slacky",
+   "version": "0.0.1",
+   "description": "Create all the memes directly from your browser",
+   "main": "index.js",
+   "author": "Oliver Hine",
+   "engines": {
+      "firefox": ">=38.0a1"
+   },
+   "preferences": [
+      {
+         "name": "clientId",
+         "title": "Client ID",
+         "description": "Your unique account identifier",
+         "type": "string"
+      },
+      {
+         "name": "excludedDomains",
+         "title": "Excluded domains",
+         "description": "A comma-separated list of domains to exclude",
+         "type": "string"
+      }
+   ],
+   "license": "MIT"
 }

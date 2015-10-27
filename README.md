@@ -18,7 +18,9 @@ Learn the meme syntax at https://slacky-server.herokuapp.com
 
 ## Discrete
 
-`jpm run -b \`which firefox\`` --profile ./firefox-profile
+```
+jpm run -b \`which firefox\` --profile ./firefox-profile
+```
 
 ## Continuous (not very stable)
 

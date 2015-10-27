@@ -6,6 +6,7 @@ var tabs = require("sdk/tabs");
 var Request = require("sdk/request").Request;
 var ss = require("sdk/simple-storage");
 var uuid = require("sdk/util/uuid");
+var prefs = require('sdk/simple-prefs').prefs;
 
 // slacky UI
 
@@ -85,10 +86,23 @@ tabs.on('ready', function (tab) {
    });
 
    worker.port.on('memeDetected', function(target) {
-      console.log('opening meme dialogue');
-      slackyPanel.requests[target] = {target: target,
-                                      worker: worker};
-      openSlacky(target);
+      var excluded = false;
+      var excludedDomains = prefs.excludedDomains.split(',');
+      for (i in excludedDomains) {
+         if (tabs.activeTab.url.contains(excludedDomains[i])) {
+            excluded = true;
+            break;
+         }
+      }
+
+      if (!excluded) {
+         console.log('opening meme dialogue');
+         slackyPanel.requests[target] = {target: target,
+                                         worker: worker};
+         openSlacky(target);
+      } else {
+         console.log('domain is excluded');
+      }
    });
 
 });
@@ -98,7 +112,7 @@ console.log('Slacky initialising');
 //tabs.activeTab.url = self.data.url("slacky-panel.html");
 //openSlacky();
 
-if (ss.storage.clientId == undefined) {
-   ss.storage.clientId = '' + uuid.uuid();
+if (prefs.clientId == undefined) {
+   prefs.clientId = '' + uuid.uuid();
 }
-console.log('clientId ' + ss.storage.clientId);
+console.log('clientId ' + prefs.clientId);
