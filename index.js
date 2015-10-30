@@ -68,10 +68,10 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
    }).post();
 });
 
-slackyPanel.port.on('copyMemeUrl', function(url) {
-   clipboard.set(url);
+slackyPanel.port.on('copyToClipboard', function(data) {
+   console.log('copying to clipboard: ' + data);
+   clipboard.set(data);
 });
-
 
 function openSlacky(target) {
    slackyPanel.show({
