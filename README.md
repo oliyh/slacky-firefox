@@ -32,4 +32,8 @@ jpm run -b \`which firefox\` --profile ./firefox-profile
 ## Demo page
 Open [resource://slacky/data/demo.html](resource://slacky/data/demo.html)
 
+# Build
+
+`jpm xpi`
+
 # Contributions
