@@ -12,6 +12,10 @@ function init() {
          }
       });
 
+   $('#copy-meme-url').click(function (e) {
+      self.port.emit('copyMemeUrl', $('#meme-url').val());
+   });
+
    self.port.on('panelOpened', function(t) {
       target = t;
       $('#meme').attr('src', 'loading.gif').hide();
@@ -21,6 +25,8 @@ function init() {
 
    self.port.on('memeGenerated', function(memeUrl) {
       $('#meme').attr('src', memeUrl).show();
+      $('#meme-url').val(memeUrl);
+      $('#meme-controls').show();
    });
 
    self.port.on('badMemeRequest', function(helpText) {

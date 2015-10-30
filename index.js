@@ -7,6 +7,7 @@ var Request = require("sdk/request").Request;
 var ss = require("sdk/simple-storage");
 var uuid = require("sdk/util/uuid");
 var prefs = require('sdk/simple-prefs').prefs;
+var clipboard = require("sdk/clipboard");
 
 // slacky UI
 
@@ -26,7 +27,7 @@ var slackyPanel = panels.Panel({
    contentScriptFile: [self.data.url("jquery.js"),
                        self.data.url("panel.js")],
    width: 360,
-   height: 280
+   height: 308
 });
 
 slackyPanel.requests = {};
@@ -66,6 +67,11 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
       }
    }).post();
 });
+
+slackyPanel.port.on('copyMemeUrl', function(url) {
+   clipboard.set(url);
+});
+
 
 function openSlacky(target) {
    slackyPanel.show({
