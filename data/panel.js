@@ -13,13 +13,18 @@ function init() {
       });
 
    $('#copy-meme-url').click(function (e) {
-      self.port.emit('copyMemeUrl', $('#meme-url').val());
+      self.port.emit('copyToClipboard', $('#meme-url').val());
+   });
+
+   $('#copy-meme-data').click(function (e) {
+      self.port.emit('copyImageData', $('#meme-url').val())
    });
 
    self.port.on('panelOpened', function(t) {
       target = t;
       $('#meme').attr('src', 'loading.gif').hide();
       $('#error').text('').hide();
+      $('#meme-controls').hide();
       $('#meme-input').val('').focus();
    });
 
@@ -31,6 +36,7 @@ function init() {
 
    self.port.on('badMemeRequest', function(helpText) {
       $('#meme').hide();
+      $('#meme-controls').hide();
       $('#error')
          .html(helpText.replace(/\n/g, '<br/>'))
          .show();
@@ -38,12 +44,11 @@ function init() {
 
    self.port.on('memeGenerationFailed', function(error) {
       $('#meme').hide();
+      $('#meme-controls').hide();
       $('#error')
          .html(error.replace(/\n/g, '<br/>'))
          .show();
    });
-
-
 }
 
 init();
