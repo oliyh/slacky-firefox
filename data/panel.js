@@ -17,6 +17,9 @@ function init() {
    });
 
    $('#copy-meme-data').click(function (e) {
+      console.log('trying to copy image data');
+      self.port.emit('copyImageData', $('#meme-url').val());
+/*
       var img = new Image,
       canvas = document.createElement("canvas"),
       ctx = canvas.getContext("2d"),
@@ -36,6 +39,7 @@ function init() {
          img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
          img.src = src;
       }
+
       /**
       var img = document.getElementById('meme');
       var canvas = document.createElement('CANVAS');

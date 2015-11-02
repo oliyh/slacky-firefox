@@ -73,6 +73,17 @@ slackyPanel.port.on('copyToClipboard', function(data) {
    clipboard.set(data);
 });
 
+
+slackyPanel.port.on('copyImageData', function(url) {
+   console.log('attaching script to copy');
+   tabs.activeTab.attach({
+      contentScriptFile: [self.data.url("copyImageData.js")],
+      contentScript: 'console.log("executing copy method"); copyImageData("' + url + '");'
+   });
+
+});
+
+
 function openSlacky(target) {
    slackyPanel.show({
       position: button
