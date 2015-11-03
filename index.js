@@ -8,7 +8,8 @@ var ss = require("sdk/simple-storage");
 var uuid = require("sdk/util/uuid");
 var prefs = require('sdk/simple-prefs').prefs;
 var clipboard = require("sdk/clipboard");
-
+var xhr = require("sdk/net/xhr");
+var b64 = require("sdk/base64")
 // slacky UI
 
 var button = buttons.ActionButton({
@@ -73,14 +74,19 @@ slackyPanel.port.on('copyToClipboard', function(data) {
    clipboard.set(data);
 });
 
-
 slackyPanel.port.on('copyImageData', function(url) {
-   console.log('attaching script to copy');
-   tabs.activeTab.attach({
-      contentScriptFile: [self.data.url("copyImageData.js")],
-      contentScript: 'console.log("executing copy method"); copyImageData("' + url + '");'
-   });
-
+   // hard won knowledge from http://stackoverflow.com/questions/20035615/using-raw-image-data-from-ajax-request-for-data-uri
+   var xmlHTTP = xhr.XMLHttpRequest();
+   xmlHTTP.open('GET', url, true);
+   xmlHTTP.responseType = 'arraybuffer';
+   xmlHTTP.onload = function(e) {
+      var arr = new Uint8Array(this.response);
+      var raw = String.fromCharCode.apply(null,arr);
+      var b64 = b64.encode(raw);
+      var dataURL="data:image/jpeg;base64," + b64;
+      clipboard.set(dataURL);
+   };
+   xmlHTTP.send();
 });
 
 
@@ -121,7 +127,6 @@ tabs.on('ready', function (tab) {
          console.log('domain is excluded');
       }
    });
-
 });
 
 // for dev only
