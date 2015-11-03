@@ -1,5 +1,32 @@
 target = null;
 
+function copyMemeData(iframe, src) {
+   console.log('iframe load triggered');
+//   var iframe = iframeLoadEvent.target;
+   var canvas = iframe.contentDocument.createElement("canvas");
+   var ctx = canvas.getContext("2d");
+   var img = new Image();
+   //var img = iframe.contentDocument.getElementsByTagName('img')[0];
+
+   //img.crossOrigin = "Anonymous";
+
+   img.onload = function() {
+      console.log('image load fired');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage( img, 0, 0 );
+      var dataURL = canvas.toDataURL('image/png');
+      self.port.emit('copyToClipboard', dataURL);
+   }
+   img.src = src;
+   // make sure the load event fires for cached images too
+   if ( img.complete || img.complete === undefined ) {
+      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+      img.src = src;
+   }
+
+}
+
 function init() {
    $('#meme-input')
       .val('')
@@ -16,29 +43,17 @@ function init() {
       self.port.emit('copyToClipboard', $('#meme-url').val());
    });
 
+
    $('#copy-meme-data').click(function (e) {
       console.log('trying to copy image data');
       self.port.emit('copyImageData', $('#meme-url').val());
 /*
-      var img = new Image,
-      canvas = document.createElement("canvas"),
-      ctx = canvas.getContext("2d"),
-      src = "http://i.memecaptain.com/gend_images/J1rjYA.jpg"; // insert image url here
+      var src = "http://i.memecaptain.com/gend_images/J1rjYA.jpg"; // insert image url here
 
-      img.crossOrigin = "Anonymous";
-
-      img.onload = function() {
-         canvas.width = img.width;
-         canvas.height = img.height;
-         ctx.drawImage( img, 0, 0 );
-         localStorage.setItem( "savedImageData", canvas.toDataURL("image/png") );
-      }
-      img.src = src;
-      // make sure the load event fires for cached images too
-      if ( img.complete || img.complete === undefined ) {
-         img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-         img.src = src;
-      }
+      var iframe = document.createElement("iframe");
+      iframe.addEventListener('load', function() { copyMemeData(iframe, src); }, false);
+      document.body.appendChild(iframe);
+      iframe.src = "http://memecaptain.com/";
 
       /**
       var img = document.getElementById('meme');

@@ -9,8 +9,8 @@
       "firefox": ">=38.0a1"
    },
    "permissions": {
-      "cross-domain-content": ["http://i.memecaptain.com",
-                              "http://memecaptain.com"]
+      "cross-domain-content": ["http://i.memecaptain.com/",
+                               "http://memecaptain.com/"]
    },
    "preferences": [
       {
