@@ -19,7 +19,8 @@
          "name": "excludedDomains",
          "title": "Excluded domains",
          "description": "A comma-separated list of domains to exclude",
-         "type": "string"
+         "type": "string",
+         "value": ""
       }
    ],
    "license": "MIT"

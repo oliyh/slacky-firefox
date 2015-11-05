@@ -3,9 +3,13 @@
     <style type="text/css" media="all">
       body {
         background-color: #15bcb7;
-        margin-top: 8px;
-        padding-bottom: 0;
-        margin-bottom: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        background-image: url('businesscat.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: bottom;
       }
 
       input#meme-input {
@@ -23,14 +27,10 @@
         border: 1px solid white;
       }
 
-      div {
-        background-image: url('businesscat.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: bottom;
+      #slacky-panel {
         width: 100%;
-        height: 300px;
-        margin-bottom: 0;
+        height: 100%;
+        margin: 0;
       }
 
       #error {
@@ -56,27 +56,136 @@
       }
 
       #meme-controls input {
-        width: 40%;
+        width: 47%;
       }
 
       #meme-controls span {
-        width: 60%;
+        width: 53%;
       }
 
+      #meme-history {
+        width: 100%;
+      }
+
+      /* slider css */
+
+      #slider {
+        position: relative;
+        overflow: hidden;
+        margin-top: 4px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        background: none;
+        padding: 0;
+        text-align: center;
+      }
+
+      #slides {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 220px;
+        width: 100%;
+        list-style: none;
+      }
+
+      #slides li {
+        position: relative;
+        display: block;
+        float: left;
+        margin: 0;
+        padding: 0;
+        background: none;
+        text-align: center;
+        line-height: 220px;
+        width: 340px;
+        height: 220px;
+      }
+
+      #slides li img {
+        max-height: 220px;
+        max-width: 350px;
+      }
+
+      a.control_prev, a.control_next {
+        position: absolute;
+        top: 40%;
+        z-index: 999;
+        display: block;
+        padding: 4% 3%;
+        width: auto;
+        height: auto;
+        background: #2a2a2a;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 18px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      a.control_prev:hover, a.control_next:hover {
+        opacity: 1;
+        transition: all 0.2s ease;
+      }
+
+      a.control_prev {
+        border-radius: 0 2px 2px 0;
+      }
+
+      a.control_next {
+        right: 0;
+        border-radius: 2px 0 0 2px;
+      }
+
+      #indicator {
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #indicator li {
+        display: inline-block;
+        width: 1.4em;
+      }
+
+      #indicator li::before {
+        content: '\26AA';
+        color: white;
+        text-align: center;
+      }
+
+      #indicator li.active::before {
+        content: '\26AB';
+      }
     </style>
   </head>
   <body>
-    <div>
+    <div id="slacky-panel">
       <input id="meme-input" type="text" placeholder="url or search | upper | lower">
-      <img id="meme" src="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/>
-      <div id="meme-controls">
-        <input id="meme-url" value="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/>
-        <span>
-          <button id="copy-meme-url">Copy url</button>
-          <button id="copy-meme-data">Copy image</button>
-        </span>
+      <div id="memeHistory">
+        <div id="slider">
+	        <a href="#" class="control_next">&raquo;</a>
+	        <a href="#" class="control_prev">&laquo;</a>
+          <ul id="slides">
+	          <li><img src="loading.gif"/></li>
+	        </ul>
+        </div>
+
+        <ul id="indicator"></ul>
+
+        <div id="meme-controls">
+          <input id="meme-url" value="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/>
+          <span>
+            <button id="copy-meme-url">Copy url</button>
+            <button id="copy-meme-data">Copy image</button>
+          </span>
+        </div>
       </div>
-       <p id="error"></p>
+      <p id="error"></p>
     </div>
   </body>
 </html>

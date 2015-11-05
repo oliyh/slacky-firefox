@@ -1,5 +1,13 @@
 target = null;
 
+function addToCarousel(memeUrl) {
+   addSlide($('<li/>').append($('<img>', {src: memeUrl})));
+}
+
+function replaceFirstInCarousel(memeUrl) {
+   replaceSlide(0, $('<li/>').append($('<img>', {src: memeUrl})));
+}
+
 function init() {
    $('#meme-input')
       .val('')
@@ -7,7 +15,8 @@ function init() {
          if (event.which == 13) {
             console.log('meme pattern completed');
             $('#error').text('').hide();
-            $('#meme').attr('src', 'loading.gif').show();
+            addToCarousel('loading.gif');
+            $('#memeHistory').show();
             self.port.emit('memeRequest', target, $(this).val());
          }
       });
@@ -22,32 +31,45 @@ function init() {
 
    self.port.on('panelOpened', function(t) {
       target = t;
-      $('#meme').attr('src', 'loading.gif').hide();
+      if ($('#slides li').length > 0) {
+         $('#memeHistory').show();
+      } else {
+         $('#memeHistory').hide();
+      }
       $('#error').text('').hide();
-      $('#meme-controls').hide();
       $('#meme-input').val('').focus();
    });
 
    self.port.on('memeGenerated', function(memeUrl) {
-      $('#meme').attr('src', memeUrl).show();
+      $('#memeHistory').show();
       $('#meme-url').val(memeUrl);
-      $('#meme-controls').show();
+      replaceFirstInCarousel(memeUrl);
    });
 
    self.port.on('badMemeRequest', function(helpText) {
-      $('#meme').hide();
-      $('#meme-controls').hide();
+      $('#memeHistory').hide();
       $('#error')
          .html(helpText.replace(/\n/g, '<br/>'))
          .show();
    });
 
    self.port.on('memeGenerationFailed', function(error) {
-      $('#meme').hide();
-      $('#meme-controls').hide();
+      $('#memeHistory').hide();
       $('#error')
          .html(error.replace(/\n/g, '<br/>'))
          .show();
+   });
+
+   self.port.on('memeHistory', function(memeHistory) {
+      console.log('Populating history with ' + memeHistory + ' entries');
+	    $('#slides').empty();
+      $('#indicator').empty();
+	    $(memeHistory).each(function (i, result) {
+         addToCarousel(result.url);
+	    });
+      if (memeHistory.length > 0) {
+         $('#memeHistory').show();
+      }
    });
 }
 

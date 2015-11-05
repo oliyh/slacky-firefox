@@ -26,12 +26,22 @@ var button = buttons.ActionButton({
 var slackyPanel = panels.Panel({
    contentURL: self.data.url("slacky-panel.html"),
    contentScriptFile: [self.data.url("jquery.js"),
+		       self.data.url("vss.js"),
                        self.data.url("panel.js")],
    width: 360,
-   height: 308
+   height: 310
 });
 
 slackyPanel.requests = {};
+
+function storeMemeResult(result) {
+    var memeHistory = ss.storage.memeHistory;
+    memeHistory.push(result);
+    if (memeHistory.length > 10) {
+       memeHistory.shift();
+    }
+    ss.storage.memeHistory = memeHistory;
+}
 
 slackyPanel.port.on('memeRequest', function(target, memePattern) {
    console.log('generating meme from request ' + memePattern);
@@ -53,6 +63,8 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
             if (request != undefined) {
                request.worker.port.emit('memeGenerated', target, memeUrl);
             }
+
+	          storeMemeResult({url: memeUrl});
             break;
 
             case 400:
@@ -113,7 +125,8 @@ tabs.on('ready', function (tab) {
       var excluded = false;
       var excludedDomains = prefs.excludedDomains.split(',');
       for (i in excludedDomains) {
-         if (tabs.activeTab.url.contains(excludedDomains[i])) {
+         var domain = excludedDomains[i];
+         if (domain.length > 0 && tabs.activeTab.url.contains(excludedDomains[i])) {
             excluded = true;
             break;
          }
@@ -139,3 +152,8 @@ if (prefs.clientId == undefined) {
    prefs.clientId = '' + uuid.uuid();
 }
 console.log('clientId ' + prefs.clientId);
+if (ss.storage.memeHistory == undefined) {
+    ss.storage.memeHistory = [];
+}
+
+slackyPanel.port.emit('memeHistory', ss.storage.memeHistory);
