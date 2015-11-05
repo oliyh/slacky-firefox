@@ -37,7 +37,9 @@ slackyPanel.requests = {};
 function storeMemeResult(result) {
     var memeHistory = ss.storage.memeHistory;
     memeHistory.push(result);
-    memeHistory.shift();
+    if (memeHistory.length > 10) {
+       memeHistory.shift();
+    }
     ss.storage.memeHistory = memeHistory;
 }
 
@@ -62,7 +64,7 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
                request.worker.port.emit('memeGenerated', target, memeUrl);
             }
 
-	    storeMemeResult({url: memeUrl});
+	          storeMemeResult({url: memeUrl});
             break;
 
             case 400:
@@ -153,4 +155,4 @@ if (ss.storage.memeHistory == undefined) {
     ss.storage.memeHistory = [];
 }
 
-//slackyPanel.port.emit('memeHistory', ss.storage.memeHistory);
+slackyPanel.port.emit('memeHistory', ss.storage.memeHistory);

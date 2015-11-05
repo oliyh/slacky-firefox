@@ -68,15 +68,19 @@
       #slider {
         position: relative;
         overflow: hidden;
-        margin: 20px auto 0 auto;
-        border-radius: 4px;
+        margin-top: 4px;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        background: none;
       }
 
       #slider ul {
         position: relative;
         margin: 0;
         padding: 0;
-        height: 200px;
+        height: 220px;
+        width: 100%;
         list-style: none;
       }
 
@@ -86,11 +90,16 @@
         float: left;
         margin: 0;
         padding: 0;
-        width: 500px;
-        height: 300px;
-        background: #ccc;
+        background: none;
         text-align: center;
-        line-height: 300px;
+        line-height: 220px;
+        width: 340px;
+        height: 220px;
+      }
+
+      #slider ul li img {
+        max-height: 220px;
+        max-width: 350px;
       }
 
       a.control_prev, a.control_next {
@@ -129,15 +138,12 @@
   <body>
     <div>
       <input id="meme-input" type="text" placeholder="url or search | upper | lower">
-      <img id="meme" src=""/>
       <div id="slider">
-	<a href="#" class="control_next">></a>
-	<a href="#" class="control_prev"><</a>
+	      <a href="#" class="control_next">></a>
+	      <a href="#" class="control_prev"><</a>
         <ul id="memeHistory">
-	  <li><img src="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/></li>
-	  <li><img src="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/></li>
-	  
-	</ul>
+	        <li><img src="loading.gif"/></li>
+	      </ul>
       </div>
       <div id="meme-controls">
         <input id="meme-url" value="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/>
