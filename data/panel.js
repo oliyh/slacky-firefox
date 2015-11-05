@@ -49,6 +49,15 @@ function init() {
          .html(error.replace(/\n/g, '<br/>'))
          .show();
    });
+
+    self.port.on('memeHistory', function(memeHistory) {
+	$('#memeHistory').empty();
+	$(memeHistory).each(function (result) {
+	    $('#memeHistory')
+		.append($('<li/>', {style: 'background: url(' + result.url + ');'}));
+	});
+    });
+
 }
 
 init();
