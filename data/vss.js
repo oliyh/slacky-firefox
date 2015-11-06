@@ -1,20 +1,24 @@
 jQuery(document).ready(function ($) {
-   var slideCount = $('#slider ul li').length;
-   var slideWidth = $('#slider ul li').width();
-   var slideHeight = $('#slider ul li').height();
+   var slideCount = $('#slides li').length;
+   var slideWidth = $('#slides li').width();
+   var slideHeight = $('#slides li').height();
    var sliderUlWidth = slideCount * slideWidth;
 
-   $('#slider').css({ width: slideWidth, height: slideHeight });
-   $('#slider ul').css({ width: sliderUlWidth});
+   $('#slider').css({width: slideWidth, height: slideHeight});
+   $('#slides').css({width: sliderUlWidth, height: slideHeight});
+
+   for (i = 0; i < slideCount; i++) {
+      $('#indicator').append($('<li/>').append($('<button/>', {text: i})));
+   }
 
    function toggleControls() {
-      if ($('#slider ul').position().left == 0) {
+      if ($('#slides').position().left == 0) {
          $('a.control_prev').hide();
       } else {
          $('a.control_prev').show();
       }
 
-      if ($('#slider ul').position().left == ((-1 * sliderUlWidth) + slideWidth)) {
+      if ($('#slides').position().left == ((-1 * sliderUlWidth) + slideWidth)) {
          $('a.control_next').hide();
       } else {
          $('a.control_next').show();
@@ -22,14 +26,14 @@ jQuery(document).ready(function ($) {
    }
 
    function moveLeft() {
-      $('#slider ul').animate({
-         left: $('#slider ul').position().left + slideWidth
+      $('#slides').animate({
+         left: $('#slides').position().left + slideWidth
       }, 200, toggleControls);
    };
 
    function moveRight() {
-      $('#slider ul').animate({
-         left: $('#slider ul').position().left - slideWidth
+      $('#slides').animate({
+         left: $('#slides').position().left - slideWidth
       }, 200, toggleControls);
    };
 
@@ -40,11 +44,11 @@ jQuery(document).ready(function ($) {
 });
 
 function addSlide(slide) {
-   $(slide).prependTo('#slider ul');
+   $(slide).prependTo('#slides');
 
-   var slideCount = $('#slider ul li').length;
+   var slideCount = $('#slides li').length;
    var sliderUlWidth = slideCount * slideWidth;
 
-   $('#slider ul').css({width: sliderUlWidth});
-   $('#slider ul').css('left', '');
+   $('#slides').css({width: sliderUlWidth});
+   $('#slides').css('left', '');
 }

@@ -75,7 +75,7 @@
         background: none;
       }
 
-      #slider ul {
+      #slides {
         position: relative;
         margin: 0;
         padding: 0;
@@ -84,7 +84,7 @@
         list-style: none;
       }
 
-      #slider ul li {
+      #slides li {
         position: relative;
         display: block;
         float: left;
@@ -97,7 +97,7 @@
         height: 220px;
       }
 
-      #slider ul li img {
+      #slides li img {
         max-height: 220px;
         max-width: 350px;
       }
@@ -139,12 +139,15 @@
     <div>
       <input id="meme-input" type="text" placeholder="url or search | upper | lower">
       <div id="slider">
-	      <a href="#" class="control_next">></a>
-	      <a href="#" class="control_prev"><</a>
-        <ul id="memeHistory">
+	      <a href="#" class="control_next">&raquo;</a>
+	      <a href="#" class="control_prev">&laquo;</a>
+        <ul id="slides">
 	        <li><img src="loading.gif"/></li>
 	      </ul>
       </div>
+
+      <ul id="slide-indicator"></ul>
+
       <div id="meme-controls">
         <input id="meme-url" value="http://i.memecaptain.com/gend_images/J1rjYA.jpg"/>
         <span>
