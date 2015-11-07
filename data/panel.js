@@ -65,14 +65,12 @@ function init() {
 	    $('#slides').empty();
       $('#indicator').empty();
 	    $(memeHistory).each(function (i, result) {
-         console.log(result);
          addToCarousel(result.url);
 	    });
       if (memeHistory.length > 0) {
          $('#memeHistory').show();
       }
    });
-
 }
 
 init();
