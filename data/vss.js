@@ -15,6 +15,8 @@ function toggleControls() {
    } else {
       $('a.control_next').show();
    }
+
+   $('#meme-url').val($('#slides li.active img').attr('src'));
 }
 
 jQuery(document).ready(function ($) {
@@ -32,11 +34,13 @@ jQuery(document).ready(function ($) {
 
    function onMoveLeft() {
       $('#indicator li.active').removeClass('active').prev('li').addClass('active');
+      $('#slides li.active').removeClass('active').prev('li').addClass('active');
       toggleControls();
    }
 
    function onMoveRight () {
       $('#indicator li.active').removeClass('active').next('li').addClass('active');
+      $('#slides li.active').removeClass('active').next('li').addClass('active');
       toggleControls();
    }
 
@@ -53,6 +57,7 @@ jQuery(document).ready(function ($) {
    };
 
    $('#indicator li:first-child').addClass('active');
+   $('#slides li:first-child').addClass('active');
    $('a.control_prev').click(moveLeft);
    $('a.control_next').click(moveRight);
    toggleControls();
@@ -70,6 +75,9 @@ function addSlide(slide) {
    $('#slides').css('left', '');
    $('#indicator li').removeClass('active');
    $('#indicator li:first-child').addClass('active');
+   $('#slides li').removeClass('active');
+   $('#slides li:first-child').addClass('active');
+
    toggleControls();
 }
 
@@ -78,5 +86,8 @@ function replaceSlide(index, slide) {
    $('#slides').css('left', '');
    $('#indicator li').removeClass('active');
    $('#indicator li:first-child').addClass('active');
+   $('#slides li').removeClass('active');
+   $('#slides li:first-child').addClass('active');
+
    toggleControls();
 }
