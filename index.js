@@ -125,7 +125,8 @@ tabs.on('ready', function (tab) {
       var excluded = false;
       var excludedDomains = prefs.excludedDomains.split(',');
       for (i in excludedDomains) {
-         if (tabs.activeTab.url.contains(excludedDomains[i])) {
+         var domain = excludedDomains[i];
+         if (domain.length > 0 && tabs.activeTab.url.contains(excludedDomains[i])) {
             excluded = true;
             break;
          }
