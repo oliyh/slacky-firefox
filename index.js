@@ -82,24 +82,11 @@ slackyPanel.port.on('memeRequest', function(target, memePattern) {
 });
 
 slackyPanel.port.on('copyToClipboard', function(data) {
-   console.log('copying to clipboard: ' + data);
    clipboard.set(data);
 });
 
 slackyPanel.port.on('copyImageData', function(url) {
-   // hard won knowledge from http://stackoverflow.com/questions/20035615/using-raw-image-data-from-ajax-request-for-data-uri
-   var xmlHTTP = xhr.XMLHttpRequest();
-   xmlHTTP.open('GET', url, true);
-   xmlHTTP.responseType = 'arraybuffer';
-   xmlHTTP.onload = function(e) {
-      var arr = new Uint8Array(this.response);
-      var raw = String.fromCharCode.apply(null,arr);
-      var b64 = base64.encode(raw);
-      var dataURL="data:image/png;base64," + b64;
-      console.log('copying png img html to clipboard');
-      clipboard.set('<img src="' + dataURL + '"/>', 'html');
-   };
-   xmlHTTP.send();
+   clipboard.set('<img src="' + url + '"/>', 'html');
 });
 
 
