@@ -8,12 +8,30 @@ function attachDomEventListeners() {
          self.port.emit('memeDetected', $(event.target).attr('id'));
       }
    });
+
+   $('div[contenteditable]').keyup(function(event) {
+      console.log('key pressed');
+      var userText = event.target.textContent;
+      if (memePattern.test(userText)) {
+         self.port.emit('memeDetected', $(event.target).attr('id'));
+      }
+   });
 }
 
 function attachSlackyEventListeners() {
    self.port.on('memeGenerated', function(target, memeUrl) {
       var target = $('#' + target);
-      target.val(target.val().replace(memePattern, memeUrl));
+      if (target.attr('contenteditable')) {
+         console.log('inserting image');
+         // the text node containing the /meme command
+         // feasible to break it apart and replace it?
+         // target.contents().filter(function() {
+         //    return this.nodeType === 3 && memePattern.test($(this).text());
+         // }).first();
+         target.append($('<img/>', {src: memeUrl}));
+      } else {
+         target.val(target.val().replace(memePattern, memeUrl));
+      }
    });
 }
 
