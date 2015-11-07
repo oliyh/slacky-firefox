@@ -4,6 +4,10 @@ function addToCarousel(memeUrl) {
    addSlide($('<li/>').append($('<img>', {src: memeUrl})));
 }
 
+function replaceFirstInCarousel(memeUrl) {
+   replaceSlide(0, $('<li/>').append($('<img>', {src: memeUrl})));
+}
+
 function init() {
    $('#meme-input')
       .val('')
@@ -11,7 +15,7 @@ function init() {
          if (event.which == 13) {
             console.log('meme pattern completed');
             $('#error').text('').hide();
-            $('#meme').attr('src', 'loading.gif').show();
+            addToCarousel('loading.gif');
             self.port.emit('memeRequest', target, $(this).val());
          }
       });
@@ -38,7 +42,7 @@ function init() {
    self.port.on('memeGenerated', function(memeUrl) {
       $('#memeHistory').show();
       $('#meme-url').val(memeUrl);
-      addToCarousel(memeUrl);
+      replaceFirstInCarousel(memeUrl);
    });
 
    self.port.on('badMemeRequest', function(helpText) {

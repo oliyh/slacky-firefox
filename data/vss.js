@@ -72,3 +72,11 @@ function addSlide(slide) {
    $('#indicator li:first-child').addClass('active');
    toggleControls();
 }
+
+function replaceSlide(index, slide) {
+   $($('#slides li')[index]).replaceWith($(slide));
+   $('#slides').css('left', '');
+   $('#indicator li').removeClass('active');
+   $('#indicator li:first-child').addClass('active');
+   toggleControls();
+}
