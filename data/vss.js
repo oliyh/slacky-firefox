@@ -1,5 +1,9 @@
+function currentIndex() {
+   return $('#slides li.active').index() || 0;
+}
+
 function toggleControls() {
-   if (currentIndex() == 0) {
+   if (currentIndex() < 1) {
       $('a.control_prev').hide();
    } else {
       $('a.control_prev').show();
@@ -69,9 +73,7 @@ function addSlide(slide) {
    }
 
    resizeToFit();
-
    slideTo(0);
-
 }
 
 function replaceSlide(index, slide) {
@@ -79,6 +81,8 @@ function replaceSlide(index, slide) {
    slideTo(index);
 }
 
-function currentIndex() {
-   return $('#slides li.active').index();
+function removeSlide(index) {
+   $($('#slides li')[index]).remove();
+   $($('#indicator li')[index]).remove();
+   slideTo(0);
 }

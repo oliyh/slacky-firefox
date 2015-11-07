@@ -33,15 +33,29 @@
         margin: 0;
       }
 
-      #error {
-        background: rgba(255, 255, 255, 0.8);
+      #error-container {
+        background: rgba(255, 80, 80, 0.9);
         color: black;
-        margin-top: 4px;
-        margin-left: 1px;
-        margin-right: 1px;
-        border-radius: 2px;
+        margin: 0;
         display: none;
+        padding: 0;
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+      }
+
+      #error {
         padding: 4px;
+        margin: 0;
+      }
+
+      #hide-error {
+        top: 4px;
+        right: 0;
+        position: absolute;
+        font-size: 2em;
+        line-height: 0.5em;
+        cursor: pointer;
       }
 
       #meme-controls {
@@ -166,6 +180,10 @@
   <body>
     <div id="slacky-panel">
       <input id="meme-input" type="text" placeholder="url or search | upper | lower">
+      <div id="error-container">
+        <p id="error"></p>
+        <span id="hide-error">&times;</span>
+      </div>
       <div id="memeHistory">
         <div id="slider">
 	        <a href="#" class="control_next">&raquo;</a>
@@ -185,7 +203,6 @@
           </span>
         </div>
       </div>
-      <p id="error"></p>
     </div>
   </body>
 </html>

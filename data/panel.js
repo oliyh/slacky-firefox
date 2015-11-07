@@ -14,7 +14,7 @@ function init() {
       .keyup(function(event) {
          if (event.which == 13) {
             console.log('meme pattern completed');
-            $('#error').text('').hide();
+            $('#error-container').hide();
             addToCarousel('loading.gif');
             $('#memeHistory').show();
             self.port.emit('memeRequest', target, $(this).val());
@@ -29,6 +29,10 @@ function init() {
       self.port.emit('copyImageData', $('#meme-url').val())
    });
 
+   $('#hide-error').click(function(e) {
+      $('#error-container').hide();
+   });
+
    self.port.on('panelOpened', function(t) {
       target = t;
       if ($('#slides li').length > 0) {
@@ -36,7 +40,7 @@ function init() {
       } else {
          $('#memeHistory').hide();
       }
-      $('#error').text('').hide();
+      $('#error-container').hide();
       $('#meme-input').val('').focus();
    });
 
@@ -47,17 +51,15 @@ function init() {
    });
 
    self.port.on('badMemeRequest', function(helpText) {
-      $('#memeHistory').hide();
-      $('#error')
-         .html(helpText.replace(/\n/g, '<br/>'))
-         .show();
+      removeSlide(0);
+      $('#error').html(helpText.replace(/\n/g, '<br/>'));
+      $('#error-container').show();
    });
 
    self.port.on('memeGenerationFailed', function(error) {
-      $('#memeHistory').hide();
-      $('#error')
-         .html(error.replace(/\n/g, '<br/>'))
-         .show();
+      removeSlide(0);
+      $('#error').html(error.replace(/\n/g, '<br/>'));
+      $('#error-container').show();
    });
 
    self.port.on('memeHistory', function(memeHistory) {
