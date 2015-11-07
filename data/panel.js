@@ -16,6 +16,7 @@ function init() {
             console.log('meme pattern completed');
             $('#error').text('').hide();
             addToCarousel('loading.gif');
+            $('#memeHistory').show();
             self.port.emit('memeRequest', target, $(this).val());
          }
       });
