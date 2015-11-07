@@ -29,7 +29,7 @@ var slackyPanel = panels.Panel({
 		       self.data.url("vss.js"),
                        self.data.url("panel.js")],
    width: 360,
-   height: 308
+   height: 310
 });
 
 slackyPanel.requests = {};

@@ -26,33 +26,30 @@ function init() {
 
    self.port.on('panelOpened', function(t) {
       target = t;
-      if ($('#memeHistory li').length > 0) {
-         $('#slider').show();
-         $('#meme-controls').show();
+      if ($('#slides li').length > 0) {
+         $('#memeHistory').show();
       } else {
-         $('#slider').hide();
-         $('#meme-controls').hide();
+         $('#memeHistory').hide();
       }
       $('#error').text('').hide();
       $('#meme-input').val('').focus();
    });
 
    self.port.on('memeGenerated', function(memeUrl) {
-      $('#slider').show();
+      $('#memeHistory').show();
       $('#meme-url').val(memeUrl);
-      $('#meme-controls').show();
       addToCarousel(memeUrl);
    });
 
    self.port.on('badMemeRequest', function(helpText) {
-      $('#meme-controls').hide();
+      $('#memeHistory').hide();
       $('#error')
          .html(helpText.replace(/\n/g, '<br/>'))
          .show();
    });
 
    self.port.on('memeGenerationFailed', function(error) {
-      $('#meme-controls').hide();
+      $('#memeHistory').hide();
       $('#error')
          .html(error.replace(/\n/g, '<br/>'))
          .show();
@@ -60,13 +57,14 @@ function init() {
 
    self.port.on('memeHistory', function(memeHistory) {
       console.log('Populating history with ' + memeHistory + ' entries');
-	    $('#memeHistory').empty();
+	    $('#slides').empty();
+      $('#indicator').empty();
 	    $(memeHistory).each(function (i, result) {
          console.log(result);
          addToCarousel(result.url);
 	    });
       if (memeHistory.length > 0) {
-         $('#slider').show();
+         $('#memeHistory').show();
       }
    });
 
