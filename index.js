@@ -26,10 +26,10 @@ var button = buttons.ActionButton({
 var slackyPanel = panels.Panel({
    contentURL: self.data.url("slacky-panel.html"),
    contentScriptFile: [self.data.url("jquery.js"),
-		       self.data.url("vss.js"),
+		                   self.data.url("vss.js"),
                        self.data.url("panel.js")],
    width: 360,
-   height: 310
+   height: 300
 });
 
 slackyPanel.requests = {};
