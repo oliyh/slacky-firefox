@@ -1,0 +1,6 @@
+*.xpi
+firefox-profile/
+.git/
+.gitignore
+test/
+README.md
