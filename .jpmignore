@@ -1,4 +1,5 @@
 *.xpi
+.jpmignore
 firefox-profile/
 .git/
 .gitignore
