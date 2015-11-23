@@ -1,7 +1,7 @@
 {
    "title": "Slacky - Memes as a Service",
    "name": "slacky",
-   "version": "0.0.1",
+   "version": "0.1.0",
    "description": "Create all the memes directly from your browser",
    "main": "index.js",
    "author": "Oliver Hine",
